@@ -19,6 +19,17 @@
 			</ul>
 		</article>
 		<article>
+			<p>instanceof</p>
+			<ul>
+				<li>
+					判断实例是否在原型上,还可以在继承关系中来判断实例是否属于它的父类型或者祖先类型
+				</li>
+				<li>
+					左边<p1>的原型链（__proto__）是否在右边<P>的prototype上
+				</li>
+			</ul>
+		</article>
+		<article>
 			<p>new原理</p>
 			<ul>
 				<li>
@@ -121,6 +132,30 @@
 			return 'go'
 		}
 		console.log(bar.mCall(foo, 'sanmao', 18,'coder',go()),'mCall');
+
+		/*
+		 * instanceof 实现
+		*/
+		function instance_of(L, R) {//L 表示左表达式，R 表示右表达式 
+		    var O = R.prototype;   // 取 R 的显示原型 
+		    L = L.__proto__;  // 取 L 的隐式原型
+		    while (true) {    
+		        if (L === null){
+		        	return false;   
+		        }      
+		             
+		        if (O === L){
+		        	return true;   
+		        }  // 当 O 显式原型 严格等于  L隐式原型 时，返回true
+		             
+		        L = L.__proto__;  
+		    }
+		}
+		function P(){
+			this.name="sanmao"
+		}
+		var p1 = new P()
+		p1 instanceof P 
 	</script>
 </body>
 </html>
