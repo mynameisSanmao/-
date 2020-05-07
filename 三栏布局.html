@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>三栏布局</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.layout{
+			width: 100%;
+			height: 300px;
+		}
+		.left{
+			width: 300px;
+			background: red;
+			height: 300px;
+		}
+		.content{
+			background: blue;
+			height: 300px;
+		}
+		.right{
+			width: 300px;
+			background: green;
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<!-- float布局
+	缺点：脱离了文档流，要做清除浮动，会带来其他问题，比如高度塌陷（父级高度不由子级撑开）；
+	优化：兼容性比较好，也比较简单，只要清除好浮动问题就不大； -->
+	<section class="layout float-box">
+		<article>
+			<style type="text/css">
+				.float-box .left{
+					float: left;
+				}
+				.float-box .content{
+
+				}
+				.float-box .right{
+
+					float: right;
+				}
+			</style>
+			<div class="left">
+				
+			</div>
+			
+			<div class="right">
+				
+			</div>
+			<div class="content">
+				<h2>浮动</h2>
+			</div>
+		</article>
+	</section>
+
+<!-- position布局
+	缺点：脱离文档流，意味着其所有的子元素也会脱离文档，这种方法可用行比较差
+	优点：很快捷，很方便 -->
+	<section class="layout position-box">
+		<article class="p-article">
+			<style type="text/css">
+				.position-box{
+					margin-top: 30px;
+					position: relative;
+				}
+				.position-box .left{
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
+				.position-box .content{
+					margin-left: 300px;
+				}
+				.position-box .right{
+					position: absolute;
+					right: 0;
+					top:0;
+				}
+			</style>
+			<div class="left">
+				
+			</div>
+			<div class="content">
+				<h2>定位</h2>
+			</div>
+			<div class="right">
+				
+			</div>
+			
+		</article>
+	</section>
+
+<!-- flex布局
+	缺点：兼容性问题
+	优点：该方案可以解决上述两种方案的不足，是比较完美的解决方案 -->
+	<section class="layout flex-box">
+		<article class="p-article">
+			<style type="text/css">
+				.flex-box .p-article{
+					margin-top: 30px;
+					display: flex;
+				}
+				.flex-box .left{
+					
+				}
+				.flex-box .content{
+					flex: 1;
+				}
+				.flex-box .right{
+					
+				}
+			</style>
+			<div class="left">
+				
+			</div>
+			<div class="content">
+				<h2>flex</h2>
+			</div>
+			<div class="right">
+				
+			</div>
+			
+		</article>
+	</section>
+
+<!-- table布局
+	缺点：一个单元格高度超出的时候，两侧的单元格也会跟着一起变高，有时候这种效果并不是我们想要的
+	优化：兼容性好， -->
+	<section class="layout table-box">
+		<article class="p-article1">
+			<style type="text/css">
+				.p-article1{
+					margin-top: 30px;
+					width: 100%;
+					display: table;
+				}
+				.p-article1 div{
+					display: table-cell;
+				}
+				
+			</style>
+			<div class="left">
+				
+			</div>
+			<div class="content">
+				<h2>table</h2>
+			</div>
+			<div class="right">
+				
+			</div>
+			
+		</article>
+	</section>
+<!-- grid：布局
+	新出的技术，兼容性问题  -->
+	<section class="layout grid-box">
+		<article class="p-article">
+			<style type="text/css">
+				.grid-box .p-article{
+					margin-top: 30px;
+					width: 100%;
+					display: grid;
+					grid-template-rows: 300px;
+					grid-template-columns: 300px auto 300px;
+				}
+				.grid-box .p-article div{
+					
+				}
+			/*.table-box .left{
+				
+			}
+			.table-box .content{
+				
+			}
+			.table-box .right{
+				
+				}*/
+			</style>
+			<div class="left">
+				
+			</div>
+			<div class="content">
+				<h2>grid</h2>
+			</div>
+			<div class="right">
+				
+			</div>
+			
+		</article>
+	</section>
+</body>
+</html>

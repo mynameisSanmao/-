@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>面向对象</title>
+	<link rel="stylesheet" type="text/css" href="./main.css">
+</head>
+<body>
+	<section class="warrp-box">
+		<article>
+			<h1>面向对象</h1>
+		</article>
+		<article>
+			<p>创建对象的几种方式</p>
+			<ul>
+				<li>1、字面量 var a ={name:'sanmao'}</li>
+				<li>2、构造函数 var F = function(){this.name="sanmao"};var n = new F();</li>
+				<li>3、var p = Object.create({name:'sanmao'})</li>
+			</ul>
+		</article>
+		<article>
+			<p>new原理</p>
+			<ul>
+				<li>
+					1、以构造的prototype属性为原型，创建一个新对象Object.create(Fn.prototype)；
+				</li>
+				<li>
+					2、将this和调用的参数传给构造函数；
+				</li>
+				<li>
+					3、返回创建的对象；
+				</li>
+			</ul>
+		</article>
+		<article>
+			<p>Function.__proto__ === Function.prototype</p>
+			<ul>
+				<li>
+					1、为了保持与其他函数一致；
+				</li>
+				<li>
+					2、就是表明一种关系而已；
+				</li>
+				<li>
+					3、先有的Function，然后实现上把原型指向了Function.prototype,但不能倒过来推测因为Function.__proto__ === Function.prototype,所以Function调用了自己，生成了自己；
+				</li>
+			</ul>
+		</article>
+		<article>
+			<p>call</p>
+			<ul>
+				<li>
+					1、call是函数原型上的方法
+				</li>
+				<li>
+					2、调用call的函数设置为对象的属性
+				</li>
+				<li>
+					3、执行该函数
+				</li>
+				<li>
+					4、删除该属性
+				</li>
+			</ul>
+		</article>
+	</section>
+
+	<script type="text/javascript">
+		function Person(name,work) {
+			this.name = name;
+			this.work = work;
+		}
+		Person.prototype.say = function () {
+			console.log(`我是${this.name},我是一名${this.work}`);
+		}
+		var p1 = new Person('sanmao','程序员');
+		console.log(p1)
+		/*
+		 * @description new 简单实现
+		*/
+		function mNew(Fn,...mArgunments) {
+			const newObj = Object.create(Fn.prototype);
+			const fnObj = Fn.call(newObj,...(mArgunments));
+			if(typeof(fnObj) === 'object') {
+				return fnObj
+			}else {
+				return newObj
+			}
+			
+		}
+		var p2 = mNew(Person,'gyb','前端')
+		console.log(p2.say())
+
+		/*
+		 *@description 简易实现call
+		*/
+		Function.prototype.mCall = function(context,...arg) {
+			context = context || window;
+			context.fn = this;
+			let result =  context.fn(...arg);
+			delete context.fn
+			return result
+		}
+		let foo = {
+		    value: 1
+		};
+
+		function bar(name, age,work,fn) {
+			const obj = {
+				value: this.value,
+		        name: name,
+		        age: age,
+		        say:function() {
+		        	console.log(work)
+		        },
+		        go:fn
+			}
+		   return obj
+		}
+		function go() {
+			return 'go'
+		}
+		console.log(bar.mCall(foo, 'sanmao', 18,'coder',go()),'mCall');
+	</script>
+</body>
+</html>
