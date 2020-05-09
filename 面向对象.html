@@ -10,116 +10,94 @@
 			<h1>面向对象</h1>
 		</article>
 		<article>
-			<p>创建对象的几种方式</p>
+			<p>类与实例</p>
 			<ul>
-				<li>1、字面量 var a ={name:'sanmao'}</li>
-				<li>2、构造函数 var F = function(){this.name="sanmao"};var n = new F();</li>
-				<li>3、var p = Object.create({name:'sanmao'})</li>
+				<li>1、</li>
+				<li>2、</li>
+				<li>3、</li>
 			</ul>
 		</article>
 		<article>
-			<p>new原理</p>
+			<p>类与继承</p>
 			<ul>
 				<li>
-					1、以构造的prototype属性为原型，创建一个新对象Object.create(Fn.prototype)；
+					1、
 				</li>
 				<li>
-					2、将this和调用的参数传给构造函数；
+					2、
 				</li>
 				<li>
-					3、返回创建的对象；
-				</li>
-			</ul>
-		</article>
-		<article>
-			<p>Function.__proto__ === Function.prototype</p>
-			<ul>
-				<li>
-					1、为了保持与其他函数一致；
-				</li>
-				<li>
-					2、就是表明一种关系而已；
-				</li>
-				<li>
-					3、先有的Function，然后实现上把原型指向了Function.prototype,但不能倒过来推测因为Function.__proto__ === Function.prototype,所以Function调用了自己，生成了自己；
+					3、
 				</li>
 			</ul>
 		</article>
 		<article>
-			<p>call</p>
+			<p></p>
 			<ul>
 				<li>
-					1、call是函数原型上的方法
+					1、
 				</li>
 				<li>
-					2、调用call的函数设置为对象的属性
+					2、
 				</li>
 				<li>
-					3、执行该函数
+					3、
+				</li>
+			</ul>
+		</article>
+		<article>
+			<p></p>
+			<ul>
+				<li>
+					1、
 				</li>
 				<li>
-					4、删除该属性
+					2、
+				</li>
+				<li>
+					3、
+				</li>
+				<li>
+					4、
 				</li>
 			</ul>
 		</article>
 	</section>
 
 	<script type="text/javascript">
-		function Person(name,work) {
+		/*
+		 * 类的声明
+		*/
+		function Animal(name) {
 			this.name = name;
-			this.work = work;
 		}
-		Person.prototype.say = function () {
-			console.log(`我是${this.name},我是一名${this.work}`);
-		}
-		var p1 = new Person('sanmao','程序员');
-		console.log(p1)
-		/*
-		 * @description new 简单实现
-		*/
-		function mNew(Fn,...mArgunments) {
-			const newObj = Object.create(Fn.prototype);
-			const fnObj = Fn.call(newObj,...(mArgunments));
-			if(typeof(fnObj) === 'object') {
-				return fnObj
-			}else {
-				return newObj
-			}
-			
-		}
-		var p2 = mNew(Person,'gyb','前端')
-		console.log(p2.say())
 
 		/*
-		 *@description 简易实现call
+		 * ES6中class的声明
 		*/
-		Function.prototype.mCall = function(context,...arg) {
-			context = context || window;
-			context.fn = this;
-			let result =  context.fn(...arg);
-			delete context.fn
-			return result
-		}
-		let foo = {
-		    value: 1
-		};
-
-		function bar(name, age,work,fn) {
-			const obj = {
-				value: this.value,
-		        name: name,
-		        age: age,
-		        say:function() {
-		        	console.log(work)
-		        },
-		        go:fn
+		class Animal2 {
+			constructor () { // 构造函数
+				this.name = "name";
 			}
-		   return obj
 		}
-		function go() {
-			return 'go'
+		/*
+		 * 实例化
+		*/
+		console.log(new Animal(),new Animal2())
+
+
+		/*
+		 * 借助构造函数继承
+		*/
+		function Parent1() {
+			this.name = 'parent'
 		}
-		console.log(bar.mCall(foo, 'sanmao', 18,'coder',go()),'mCall');
+		function Child1() {
+			Parent1.call(this)
+			this.type="child1";
+		}
+		console.log(new Child1,'child1')
+		console.log(new Parent1,'Parent1')
 	</script>
 </body>
 </html>
